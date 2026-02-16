@@ -1,21 +1,21 @@
 package com.olujobii;
 
+import java.util.List;
+
 public class Student extends Person{
-    private Course enrolledCourse;
+    private final List<Course> enrolledCourses;
 
-    public Student(String name, int age, String id, Course enrolledCourse) {
+    public Student(String name, int age, String id, List<Course> enrolledCourses) {
         super(name, age, id);
-        this.enrolledCourse = enrolledCourse;
+        this.enrolledCourses = enrolledCourses;
     }
 
 
-    public Course getEnrolledCourse() {
-        return enrolledCourse;
+    public void addNewCourse(Course course){
+        enrolledCourses.add(course);
     }
 
-    public void setEnrolledCourse(Course enrolledCourse) {
-        this.enrolledCourse = enrolledCourse;
+    public List<Course> getEnrolledCourses(){
+        return enrolledCourses;
     }
-
-
 }
