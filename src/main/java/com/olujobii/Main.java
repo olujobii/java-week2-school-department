@@ -2,9 +2,9 @@ package com.olujobii;
 
 import com.olujobii.repository.DepartmentDatabase;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,7 +22,7 @@ public class Main {
         Course physics = new Course("Physics","PHY-102");
 
         //Principal
-        AdminPriviledges principal = new Principal("Mr. Olujobi",55,"PR-3412",500_000);
+        Staff principal = new Principal("Mr. Olujobi",55,"PR-3412",500_000);
 
         //Staffs
         Staff teacher1 = new Teacher("Mr. Benson",39,"TCH-892",150_000,physics);
@@ -31,16 +31,16 @@ public class Main {
         Staff teacher4 = new Teacher("Miss. Praise",39,"TCH-801",180_000,maths);
         Staff nonAcademicStaff = new NonAcademicStaff("Mr.Benjamin",35,"NASTF-742",100_000);
 
-        ArrayList<Student> students = new ArrayList<>();
-        ArrayList<Staff> staffs = new ArrayList<>();
-        ArrayList<Applicant> applicants = new ArrayList<>();
-        ArrayList<Course> courses = new ArrayList<>();
+        List<Student> students = new ArrayList<>();
+        List<Staff> staffs = new ArrayList<>();
+        List<Applicant> applicants = new ArrayList<>();
+        List<Course> courses = new ArrayList<>();
 
-        Collections.addAll(staffs,teacher1,teacher2,teacher3,teacher4,nonAcademicStaff,(Staff) principal);
+        Collections.addAll(staffs,teacher1,teacher2,teacher3,teacher4,nonAcademicStaff,principal);
         Collections.addAll(courses,english,maths,java,physics);
 
         DepartmentDatabase departmentDatabase = new DepartmentDatabase(students,staffs,applicants,courses);
 
-        return new Department(departmentDatabase,principal);
+        return new Department(departmentDatabase);
     }
 }
