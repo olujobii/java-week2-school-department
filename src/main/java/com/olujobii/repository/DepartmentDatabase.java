@@ -23,12 +23,20 @@ public class DepartmentDatabase {
         return enrolledStudents;
     }
 
+    public void addStudent(Student student){
+        enrolledStudents.add(student);
+    }
+
     public List<Staff> getAvailableStaffs() {
         return availableStaffs;
     }
 
     public List<Applicant> getApplicantList() {
         return applicantList;
+    }
+
+    public void removeApplicant(int num){
+        applicantList.remove(num);
     }
 
     public void addApplicant(Applicant applicant){applicantList.add(applicant);}
