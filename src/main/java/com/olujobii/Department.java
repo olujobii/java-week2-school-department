@@ -31,7 +31,7 @@ public class Department {
             String userOption = scanner.nextLine();
             switch (userOption){
                 case "1":
-                    listAvailableCourses();
+                    listAvailableCourses(departmentDatabase.getAvailableCourses());
                     break;
                 case "2":
                     listAllStudents(departmentDatabase.getEnrolledStudents());
@@ -59,9 +59,7 @@ public class Department {
         }
     }
 
-    private void listAvailableCourses(){
-        List<Course> courses = departmentDatabase.getAvailableCourses();
-
+    private void listAvailableCourses(List<Course> courses){
         if(courses.isEmpty()){
             System.out.println("We offer no courses at the moment");
             return;
@@ -103,6 +101,7 @@ public class Department {
 
     private void registerApplicant(){
         String applicantName;
+        List<Course> courses = departmentDatabase.getAvailableCourses();
         do {
             System.out.print("Enter your name: ");
             applicantName = scanner.nextLine();
@@ -130,9 +129,35 @@ public class Department {
             }
         }while(applicantAge < 16);
 
+        int applicantCourseChoice = 0;
+        boolean isCourseSelected = false;
+        Course selectedCourse;
+        do{
+            System.out.println("Select course you are interested in");
+            listAvailableCourses(courses);
+
+            System.out.print("Enter option: ");
+            if(scanner.hasNextInt()){
+                applicantCourseChoice = scanner.nextInt();
+                scanner.nextLine();
+            }else{
+                System.out.println("Not a valid option");
+                scanner.nextLine();
+                continue;
+            }
+
+            if(applicantCourseChoice > 0 && applicantCourseChoice <= courses.size())
+                isCourseSelected = true;
+            else
+                System.out.println("You did not select a valid course");
+        }while(!isCourseSelected);
+
         String applicantId = "AP-"+createRandomID();
 
-        Applicant applicant = new Applicant(applicantName,applicantAge,applicantId);
+        int index = applicantCourseChoice - 1;
+        selectedCourse = courses.get(index);
+
+        Applicant applicant = new Applicant(applicantName,applicantAge,applicantId,selectedCourse);
         departmentDatabase.addApplicant(applicant);
         System.out.println("Your profile has been created.");
     }
@@ -275,9 +300,8 @@ public class Department {
         String updateApplicantId = selectedApplicantId.replace("AP","ST");
         selectedApplicant.setId(updateApplicantId);
 
-        Course physics = new Course("Physics","PHY-102");
         Student student = new Student(selectedApplicant.getName(),selectedApplicant.getAge(),selectedApplicant.getId()
-                ,physics);
+                ,selectedApplicant.getEnrolledCourse());
 
         departmentDatabase.addStudent(student);
         departmentDatabase.removeApplicant(index);
