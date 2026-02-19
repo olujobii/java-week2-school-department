@@ -1,9 +1,6 @@
 package com.olujobii.repository;
 
-import com.olujobii.Applicant;
-import com.olujobii.Course;
-import com.olujobii.Staff;
-import com.olujobii.Student;
+import com.olujobii.*;
 
 import java.util.List;
 
@@ -38,5 +35,13 @@ public class DepartmentDatabase {
 
     public List<Course> getAvailableCourses() {
         return availableCourses;
+    }
+
+    public AdminPriviledges getAdminPriviledgesType(){
+        for(Staff staff : availableStaffs){
+            if(staff instanceof AdminPriviledges admin)
+                return admin;
+        }
+        return null;
     }
 }
