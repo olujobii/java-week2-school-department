@@ -34,7 +34,7 @@ public class Department {
                     listAvailableCourses();
                     break;
                 case "2":
-                    listAllStudents();
+                    listAllStudents(departmentDatabase.getEnrolledStudents());
                     break;
                 case "3":
                     listAllStaffs();
@@ -46,10 +46,10 @@ public class Department {
                     approveApplicant();
                     break;
                 case "6":
-                    System.out.println("Expel a student");
+                    expelStudent();
                     break;
                 case "7":
-                    System.out.println("EXIT");
+                    exitApplication();
                     isProgramRunning = false;
                     break;
                 default:
@@ -69,23 +69,20 @@ public class Department {
 
         System.out.println("We have "+courses.size()+" available courses");
 
-        for(Course course : courses){
-            System.out.println(course);
+        for(int i = 0 ; i < courses.size() ; i++){
+            int order = i + 1;
+
+            System.out.println(order+". "+courses.get(i));
         }
     }
 
-    private void listAllStudents(){
-        List<Student> students = departmentDatabase.getEnrolledStudents();
-
-        if(students.isEmpty()){
-            System.out.println("We have no student at the moment");
-            return;
-        }
-
+    private void listAllStudents(List<Student> students){
         System.out.println("We have "+students.size()+" enrolled students");
 
-        for(Student student : students){
-            System.out.println(student);
+        for(int i = 0 ; i < students.size() ; i++){
+            int order = i + 1;
+
+            System.out.println(order+". "+students.get(i));
         }
     }
 
@@ -182,6 +179,51 @@ public class Department {
 
         //APPROVING APPLICANT TO STUDENT
         approveApplicantToStudent(selectedApplicant,index);
+    }
+
+    private void expelStudent(){
+        if(!adminAuthentication()){
+            System.out.println("Cannot sign in at the moment. Try again later");
+            return;
+        }
+
+        System.out.println("Welcome back admin");
+        List<Student> students = departmentDatabase.getEnrolledStudents();
+
+        if(students.isEmpty()){
+            System.out.println("We have no student at the moment");
+            return;
+        }
+
+        boolean isStudentSelected = false;
+        int adminSelection = 0;
+        do {
+            System.out.println("Select the student you will like to expel");
+            listAllStudents(students);
+            System.out.print("Enter option: ");
+            if(scanner.hasNextInt()){
+                adminSelection = scanner.nextInt();
+                scanner.nextLine();
+            }else{
+                System.out.println("Not a valid option");
+                scanner.nextLine();
+                continue;
+            }
+
+            if(adminSelection > 0 && adminSelection <= students.size())
+                isStudentSelected = true;
+            else
+                System.out.println("You did not select a valid student");
+        }while(!isStudentSelected);
+
+        int index = adminSelection - 1;
+        departmentDatabase.removeStudent(index);
+        System.out.println("Student has been expelled");
+    }
+
+    private void exitApplication(){
+        System.out.println("Thanks for using the app");
+        scanner.close();
     }
 
     //Creating 3 digits random ID for applicant
