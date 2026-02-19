@@ -1,18 +1,14 @@
 package com.olujobii;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Principal extends Staff implements AdminPriviledges{
 
-    public Principal(String name, int age, String id, double salary) {
+    public Principal(String name, int age, String id, int salary) {
         super(name, age, id, salary);
     }
 
-    /*
-     * We can use an interface because not only principal should be able to approve for removal
-     * or addition of course to curriculum, to expel student upon wrong-doing or to enroll a
-     * student
-     * */
     @Override
     public boolean enrollStudent(Applicant applicant){
         if(applicant.getAge() < 11)
@@ -22,6 +18,11 @@ public class Principal extends Staff implements AdminPriviledges{
                                         applicant.getAge(),
                                         applicant.getId(), new ArrayList<>());
         //We still have to add new Student to the database(arrayList) of enrolled student
+        return true;
+    }
+
+    @Override
+    public boolean expelStudent(List<Student> students){
         return true;
     }
 }

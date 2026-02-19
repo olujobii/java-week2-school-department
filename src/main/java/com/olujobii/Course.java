@@ -1,8 +1,8 @@
 package com.olujobii;
 
 public class Course {
-    private String courseName;
-    private String courseId;
+    private final String courseName;
+    private final String courseId;
 
     public Course(String courseName, String courseId) {
         this.courseName = courseName;

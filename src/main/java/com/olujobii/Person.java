@@ -1,9 +1,9 @@
 package com.olujobii;
 
 public abstract class Person {
-    private String name;
+    private final String name;
     private int age;
-    private String id;
+    private final String id;
 
     public Person(String name, int age, String id) {
         this.name = name;
@@ -13,10 +13,6 @@ public abstract class Person {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getAge() {
@@ -29,10 +25,6 @@ public abstract class Person {
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
 //    @Override
