@@ -1,7 +1,5 @@
 package com.olujobii;
 
-import java.util.List;
-
 public class Student extends Person{
     private final Course enrolledCourses;
 
