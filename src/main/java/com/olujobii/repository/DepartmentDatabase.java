@@ -34,6 +34,8 @@ public class DepartmentDatabase {
         return applicantList;
     }
 
+    public void addApplicant(Applicant applicant){applicantList.add(applicant);}
+
     public List<Course> getAvailableCourses() {
         return availableCourses;
     }
