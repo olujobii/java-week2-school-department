@@ -2,7 +2,7 @@ package com.olujobii;
 
 public abstract class Person {
     private final String name;
-    private int age;
+    private final int age;
     private String id;
 
     public Person(String name, int age, String id) {
@@ -17,10 +17,6 @@ public abstract class Person {
 
     public int getAge() {
         return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public String getId() {
