@@ -147,8 +147,36 @@ public class Department {
         }
 
         System.out.println("Welcome back admin");
-        System.out.println("Which applicants will you like to approve: ");
-        listAllApplicants();
+        List<Applicant> applicants = departmentDatabase.getApplicantList();
+
+        if(applicants.isEmpty()){
+            System.out.println("We have no applicants at the moment");
+            return;
+        }
+
+        int adminSelection = 0;
+        boolean isApplicantSelected = false;
+        do {
+            System.out.println("Which applicants will you like to approve: ");
+            listAllApplicants(applicants);
+
+            System.out.print("Enter option: ");
+            if(scanner.hasNextInt()){
+                adminSelection = scanner.nextInt();
+                scanner.nextLine();
+            }else{
+                System.out.println("Not a valid option");
+                scanner.nextLine();
+                continue;
+            }
+
+            if(adminSelection > 0 && adminSelection <= applicants.size())
+                isApplicantSelected = true;
+            else
+                System.out.println("You did not select a valid applicant");
+        }while(!isApplicantSelected);
+
+
     }
 
     //Creating 3 digits random ID for applicant
@@ -185,14 +213,7 @@ public class Department {
         return noOfChances != 0;
     }
 
-    private void listAllApplicants(){
-        List<Applicant> applicants = departmentDatabase.getApplicantList();
-
-        if(applicants.isEmpty()){
-            System.out.println("We have no applicants at the moment");
-            return;
-        }
-
+    private void listAllApplicants(List<Applicant> applicants){
         for(int i = 0 ; i < applicants.size() ; i++){
             int order = i + 1;
 
