@@ -6,5 +6,9 @@ public class NonAcademicStaff extends Staff{
         super(name, age, id, salary);
     }
 
-
+    @Override
+    public String toString(){
+        return "Name: "+getName()+", Staff ID: "+getId()+", Staff Role: Non-Academic Staff, Age: "+getAge()+
+                ", Salary: "+getSalary();
+    }
 }

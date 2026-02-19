@@ -8,5 +8,9 @@ public class Teacher extends Staff{
         this.courseTeaching = courseTeaching;
     }
 
-
+    @Override
+    public String toString(){
+        return "Name: "+getName()+", Staff ID: "+getId()+", Staff Role: Teacher, Age: "+getAge()+
+                ", Salary: "+getSalary()+", Course Teaching: "+courseTeaching;
+    }
 }

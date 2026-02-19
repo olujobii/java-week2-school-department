@@ -11,18 +11,17 @@ public class Principal extends Staff implements AdminPriviledges{
 
     @Override
     public boolean enrollStudent(Applicant applicant){
-        if(applicant.getAge() < 11)
-            return false;
-
-        Student student = new Student(applicant.getName(),
-                                        applicant.getAge(),
-                                        applicant.getId(), new ArrayList<>());
-        //We still have to add new Student to the database(arrayList) of enrolled student
         return true;
     }
 
     @Override
     public boolean expelStudent(List<Student> students){
         return true;
+    }
+
+    @Override
+    public String toString(){
+        return "Name: "+getName()+", Staff ID: "+getId()+", Staff Role: Principal, Age: "+getAge()+
+                ", Salary: "+getSalary();
     }
 }

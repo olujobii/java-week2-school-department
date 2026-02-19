@@ -27,6 +27,6 @@ public abstract class Person {
         return id;
     }
 
-//    @Override
-//    public abstract String toString();
+    @Override
+    public abstract String toString();
 }
