@@ -14,6 +14,6 @@ public class Student extends Person{
     @Override
     public String toString(){
         return "Name: "+getName()+", Student ID: "+getId()+", Age: "+getAge()+
-                ", Enrolled Course: "+enrolledCourses;
+                ", Enrolled Course: "+enrolledCourses.getCourseName();
     }
 }
