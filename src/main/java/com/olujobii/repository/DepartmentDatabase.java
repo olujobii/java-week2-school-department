@@ -27,6 +27,10 @@ public class DepartmentDatabase {
         enrolledStudents.add(student);
     }
 
+    public void removeStudent(int index){
+        enrolledStudents.remove(index);
+    }
+
     public List<Staff> getAvailableStaffs() {
         return availableStaffs;
     }
