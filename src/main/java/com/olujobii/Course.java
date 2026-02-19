@@ -9,6 +9,10 @@ public class Course {
         this.courseId = courseId;
     }
 
+    public String getCourseName() {
+        return courseName;
+    }
+
     @Override
     public String toString(){
         return "Course Name: "+courseName+", Course ID: "+courseId;
