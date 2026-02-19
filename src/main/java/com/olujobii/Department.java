@@ -176,7 +176,12 @@ public class Department {
                 System.out.println("You did not select a valid applicant");
         }while(!isApplicantSelected);
 
+        int index = adminSelection - 1;
 
+        Applicant selectedApplicant = applicants.get(index);
+
+        //APPROVING APPLICANT TO STUDENT
+        approveApplicantToStudent(selectedApplicant,index);
     }
 
     //Creating 3 digits random ID for applicant
@@ -221,4 +226,20 @@ public class Department {
         }
     }
 
+    //APPROVE APPLICANT TO STUDENT
+    private void approveApplicantToStudent(Applicant selectedApplicant, int index){
+        //UPDATING APPLICANT ID TO STUDENT ID
+        String selectedApplicantId = selectedApplicant.getId();
+        String updateApplicantId = selectedApplicantId.replace("AP","ST");
+        selectedApplicant.setId(updateApplicantId);
+
+        Course physics = new Course("Physics","PHY-102");
+        Student student = new Student(selectedApplicant.getName(),selectedApplicant.getAge(),selectedApplicant.getId()
+                ,physics);
+
+        departmentDatabase.addStudent(student);
+        departmentDatabase.removeApplicant(index);
+
+        System.out.println(student.getName()+" is now approved as a student");
+    }
 }
