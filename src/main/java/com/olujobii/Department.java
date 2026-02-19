@@ -31,13 +31,13 @@ public class Department {
             String userOption = scanner.nextLine();
             switch (userOption){
                 case "1":
-                    listTotalNumberOfCourses();
+                    listAvailableCourses();
                     break;
                 case "2":
-                    listTotalNumberOfStudents();
+                    listAllStudents();
                     break;
                 case "3":
-                    listTotalNumberOfStaffs();
+                    listAllStaffs();
                     break;
                 case "4":
                     registerApplicant();
@@ -59,7 +59,7 @@ public class Department {
         }
     }
 
-    private void listTotalNumberOfCourses(){
+    private void listAvailableCourses(){
         List<Course> courses = departmentDatabase.getAvailableCourses();
         System.out.println("We have "+courses.size()+" available courses");
 
@@ -68,7 +68,7 @@ public class Department {
         }
     }
 
-    private void listTotalNumberOfStudents(){
+    private void listAllStudents(){
         List<Student> students = departmentDatabase.getEnrolledStudents();
         System.out.println("We have "+students.size()+" enrolled students");
 
@@ -77,7 +77,7 @@ public class Department {
         }
     }
 
-    private void listTotalNumberOfStaffs(){
+    private void listAllStaffs(){
         List<Staff> staffs = departmentDatabase.getAvailableStaffs();
         System.out.println("We have "+staffs.size()+" available staffs");
 
