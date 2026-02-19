@@ -13,4 +13,6 @@ public abstract class Staff extends Person{
         return salary;
     }
 
+    @Override
+    public abstract String toString();
 }
