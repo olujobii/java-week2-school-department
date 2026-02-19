@@ -2,16 +2,15 @@ package com.olujobii;
 
 import com.olujobii.repository.DepartmentDatabase;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Department {
     private final DepartmentDatabase departmentDatabase;
-    private final AdminPriviledges adminPriviledges;
     private final Scanner scanner;
 
-    public Department(DepartmentDatabase departmentDatabase, AdminPriviledges adminPriviledges) {
+    public Department(DepartmentDatabase departmentDatabase) {
         this.departmentDatabase = departmentDatabase;
-        this.adminPriviledges = adminPriviledges;
         this.scanner = new Scanner(System.in);
     }
 
@@ -37,7 +36,7 @@ public class Department {
                     System.out.println("TOTAL NUMBER OF STUDENTS");
                     break;
                 case "3":
-                    System.out.println("TOTAL NUMBER OF STAFFS");
+                    listTotalNumberOfStaffs();
                     break;
                 case "4":
                     System.out.println("REGISTER AS AN APPLICANT");
@@ -56,6 +55,15 @@ public class Department {
                     System.out.println("Not a valid option");
                     break;
             }
+        }
+    }
+
+    private void listTotalNumberOfStaffs(){
+        List<Staff> staffs = departmentDatabase.getAvailableStaffs();
+        System.out.println("We have "+staffs.size()+" available staffs");
+
+        for(Staff staff : staffs){
+            System.out.println(staff);
         }
     }
 }
