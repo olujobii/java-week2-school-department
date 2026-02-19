@@ -182,11 +182,7 @@ public class Department {
             }
         }while(noOfChances > 0);
 
-        if(noOfChances == 0){
-            return false;
-        }
-
-        return true;
+        return noOfChances != 0;
     }
 
     private void listAllApplicants(){
