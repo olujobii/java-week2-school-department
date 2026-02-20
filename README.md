@@ -12,6 +12,36 @@ NOTE: Admin access password is 12345
 - Loose coupling of code with the use of interface
 
 ## HOW TO RUN THE PROGRAM
+NOTE: This is a Maven project. Ensure you have **JDK 21+** installed and configured.
+1. Clone the repository 
+```bash
+git clone https://github.com/olujobii/java-week2-school-department
+cd java-week2-school-department
+```
+
+2. Build the project using Maven wrapper
+
+This compiles the code into `target/classes`.
+- On macOS / Linux:
+```bash
+./mvnw clean package
+```
+- On Windows (PowerShell / CMD):
+```bash
+mvnw.cmd clean package
+```
+
+3. Run the application
+
+- On macOS / Linux:
+```bash
+java -cp target/classes com.olujobii.Main
+```
+
+- On Windows (PowerShell / CMD):
+```bash
+java -cp target\classes com.olujobii.Main
+```
 
 ## SAMPLE OUTPUT
 ```bash
