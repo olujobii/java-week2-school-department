@@ -9,7 +9,9 @@ public class SchoolMgtSystem {
 
     public SchoolMgtSystem(Scanner scanner) {
         this.scanner = scanner;
-        DepartmentRepository.createMockData();
+        //Creating mock data for in-memory database
+        DepartmentRepository departmentRepository = new DepartmentRepository();
+        departmentRepository.createMockData();
     }
 
     public void runApplication(){
