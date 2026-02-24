@@ -3,7 +3,6 @@ package com.olujobii.presentation;
 import com.olujobii.enums.Courses;
 import com.olujobii.model.Student;
 import com.olujobii.model.baseClass.Staff;
-import com.olujobii.repository.DepartmentRepository;
 import com.olujobii.service.*;
 
 import java.util.List;
@@ -11,20 +10,16 @@ import java.util.Scanner;
 
 public class SchoolMgtSystem {
     private final Scanner scanner;
-    private final DepartmentRepository departmentRepository;
     private final StudentService studentService;
     private final StaffService staffService;
     private final CourseService courseService;
 
-    public SchoolMgtSystem(Scanner scanner, DepartmentRepository departmentRepository
-            , StudentService studentService, StaffService staffService,CourseService courseService) {
+    public SchoolMgtSystem(Scanner scanner,StudentService studentService, StaffService staffService
+            ,CourseService courseService) {
         this.scanner = scanner;
         this.studentService = studentService;
         this.staffService = staffService;
         this.courseService = courseService;
-        //Creating mock data for in-memory database
-        this.departmentRepository = departmentRepository;
-        departmentRepository.createMockData();
     }
 
     public void runApplication(){

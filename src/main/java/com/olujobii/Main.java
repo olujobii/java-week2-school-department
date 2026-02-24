@@ -17,14 +17,17 @@ public class Main {
         //Repository
         DepartmentRepository departmentRepository = new DepartmentRepository();
 
+        //Create mock data for in-memory database
+        departmentRepository.createMockData();
+
         //Service
         StudentService studentService = new StudentServiceImpl(departmentRepository);
         StaffService staffService = new StaffServiceImpl(departmentRepository);
         CourseService courseService = new CourseServiceImpl(departmentRepository);
 
         //Presentation
-        SchoolMgtSystem schoolMgtSystem = new SchoolMgtSystem(new Scanner(System.in), departmentRepository
-         ,studentService,staffService,courseService);
+        SchoolMgtSystem schoolMgtSystem = new SchoolMgtSystem(new Scanner(System.in),studentService
+                ,staffService,courseService);
 
         schoolMgtSystem.runApplication();
 
