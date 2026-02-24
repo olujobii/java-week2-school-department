@@ -1,12 +1,15 @@
-package com.olujobii.controller;
+package com.olujobii.presentation;
+
+import com.olujobii.repository.DepartmentRepository;
 
 import java.util.Scanner;
 
-public class SchoolMgtSystemController {
+public class SchoolMgtSystem {
     private final Scanner scanner;
 
-    public SchoolMgtSystemController(Scanner scanner) {
+    public SchoolMgtSystem(Scanner scanner) {
         this.scanner = scanner;
+        DepartmentRepository.createMockData();
     }
 
     public void runApplication(){
