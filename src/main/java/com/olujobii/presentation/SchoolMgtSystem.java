@@ -1,16 +1,29 @@
 package com.olujobii.presentation;
 
+import com.olujobii.enums.Courses;
+import com.olujobii.model.Student;
+import com.olujobii.model.baseClass.Staff;
 import com.olujobii.repository.DepartmentRepository;
+import com.olujobii.service.*;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class SchoolMgtSystem {
     private final Scanner scanner;
+    private final DepartmentRepository departmentRepository;
+    private final StudentService studentService;
+    private final StaffService staffService;
+    private final CourseService courseService;
 
-    public SchoolMgtSystem(Scanner scanner) {
+    public SchoolMgtSystem(Scanner scanner, DepartmentRepository departmentRepository
+            , StudentService studentService, StaffService staffService,CourseService courseService) {
         this.scanner = scanner;
+        this.studentService = studentService;
+        this.staffService = staffService;
+        this.courseService = courseService;
         //Creating mock data for in-memory database
-        DepartmentRepository departmentRepository = new DepartmentRepository();
+        this.departmentRepository = departmentRepository;
         departmentRepository.createMockData();
     }
 
@@ -30,13 +43,13 @@ public class SchoolMgtSystem {
             String userOption = scanner.nextLine();
             switch (userOption){
                 case "1":
-                    System.out.println("Listed courses");
+                    listCourses();
                     break;
                 case "2":
-                    System.out.println("Listed students");
+                    listStudents();
                     break;
                 case "3":
-                    System.out.println("Listed staffs");
+                    listStaffs();
                     break;
                 case "4":
                     System.out.println("Registered applicants");
@@ -56,6 +69,46 @@ public class SchoolMgtSystem {
                     break;
             }
         }
+    }
+
+    private void listCourses(){
+        List<Courses> courses = courseService.listAllCourses();
+
+        if(courses.isEmpty()){
+            System.out.println("We offer no courses yet");
+            return;
+        }
+
+        System.out.println("We have "+courses.size()+" courses\n");
+        for(Courses course : courses)
+            System.out.println(course);
+    }
+
+    private void listStudents(){
+        List<Student> students = studentService.listAllStudents();
+
+        if(students.isEmpty()){
+            System.out.println("No student has been enrolled");
+            return;
+        }
+
+        System.out.println("We have "+students.size()+" students enrolled in the department\n");
+        for(Student student : students)
+            System.out.println(student);
+    }
+
+    private void listStaffs(){
+        List<Staff> staffs = staffService.listAllStaffs();
+
+        if(staffs.isEmpty()){
+            System.out.println("No staff has been employed");
+            return;
+        }
+
+        System.out.println("We have "+staffs.size()+" staffs employed in the department\n");
+
+        for(Staff staff : staffs)
+            System.out.println(staff);
     }
 
     private void exitApplication(){
