@@ -14,9 +14,9 @@ public class SchoolMgtSystem {
     private final StaffService staffService;
     private final CourseService courseService;
 
-    public SchoolMgtSystem(Scanner scanner,StudentService studentService, StaffService staffService
+    public SchoolMgtSystem(StudentService studentService, StaffService staffService
             ,CourseService courseService) {
-        this.scanner = scanner;
+        this.scanner = new Scanner(System.in);
         this.studentService = studentService;
         this.staffService = staffService;
         this.courseService = courseService;

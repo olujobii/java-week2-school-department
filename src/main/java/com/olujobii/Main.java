@@ -2,14 +2,9 @@ package com.olujobii;
 
 import com.olujobii.presentation.SchoolMgtSystem;
 import com.olujobii.repository.DepartmentRepository;
-import com.olujobii.service.CourseService;
-import com.olujobii.service.StaffService;
-import com.olujobii.service.StudentService;
-import com.olujobii.service.impl.CourseServiceImpl;
-import com.olujobii.service.impl.StaffServiceImpl;
-import com.olujobii.service.impl.StudentServiceImpl;
+import com.olujobii.service.*;
+import com.olujobii.service.impl.*;
 
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,7 +21,7 @@ public class Main {
         CourseService courseService = new CourseServiceImpl(departmentRepository);
 
         //Presentation
-        SchoolMgtSystem schoolMgtSystem = new SchoolMgtSystem(new Scanner(System.in),studentService
+        SchoolMgtSystem schoolMgtSystem = new SchoolMgtSystem(studentService
                 ,staffService,courseService);
 
         schoolMgtSystem.runApplication();
