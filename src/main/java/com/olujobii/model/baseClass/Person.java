@@ -1,13 +1,17 @@
-package com.olujobii;
+package com.olujobii.model.baseClass;
+
+import com.olujobii.enums.Gender;
 
 public abstract class Person {
     private final String name;
     private final int age;
-    private String id;
+    private final Gender gender;
+    private final String id;
 
-    public Person(String name, int age, String id) {
+    public Person(String name, int age, Gender gender, String id) {
         this.name = name;
         this.age = age;
+        this.gender = gender;
         this.id = id;
     }
 
@@ -19,12 +23,12 @@ public abstract class Person {
         return age;
     }
 
-    public String getId() {
-        return id;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setId(String id){
-        this.id = id;
+    public String getId() {
+        return id;
     }
 
     @Override
