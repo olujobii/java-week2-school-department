@@ -1,15 +1,15 @@
 package com.olujobii;
 
-import com.olujobii.controller.SchoolMgtSystemController;
+import com.olujobii.presentation.SchoolMgtSystem;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        SchoolMgtSystemController schoolMgtSystemController = new SchoolMgtSystemController(new Scanner(System.in));
+        SchoolMgtSystem schoolMgtSystem = new SchoolMgtSystem(new Scanner(System.in));
 
-        schoolMgtSystemController.runApplication();
+        schoolMgtSystem.runApplication();
 
     }
 }
