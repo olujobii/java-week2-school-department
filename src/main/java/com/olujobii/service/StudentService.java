@@ -12,4 +12,6 @@ public interface StudentService {
     Student createStudent(Applicant applicant);
 
     void saveStudentToList(Student student);
+
+    void removeStudentFromList(Student student);
 }

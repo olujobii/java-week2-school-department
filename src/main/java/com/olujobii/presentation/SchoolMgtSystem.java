@@ -63,7 +63,7 @@ public class SchoolMgtSystem {
                     approveApplicant();
                     break;
                 case "6":
-                    System.out.println("Expelled Student");
+                    expelStudent();
                     break;
                 case "7":
                     exitApplication();
@@ -273,7 +273,7 @@ public class SchoolMgtSystem {
         int adminOption = 0;
         boolean isApplicantChosen = false;
         do {
-            System.out.println("\nPick an applicant");
+            System.out.print("\nPick an applicant: ");
 
             String userOption = scanner.nextLine();
 
@@ -333,6 +333,46 @@ public class SchoolMgtSystem {
             System.out.println("System has been locked, try again later");
             return;
         }
+
+        List<Student> students = studentService.listAllStudents();
+        if(students.isEmpty()){
+            System.out.println("No student has been enrolled");
+            return;
+        }
+
+        for(int i = 0 ; i < students.size(); i++){
+            int order = i + 1;
+            System.out.println(order+". "+students.get(i));
+        }
+
+        int adminOption = 0;
+        boolean isApplicantChosen = false;
+        do {
+            System.out.print("\nPick a student: ");
+
+            String userOption = scanner.nextLine();
+
+            if(!InputValidatorUtil.isAValidInteger(userOption)){
+                System.out.println("Not a valid integer");
+                continue;
+            }
+
+            adminOption = Integer.parseInt(userOption);
+
+            if(adminOption < 1 || adminOption > students.size()){
+                System.out.println("Not a valid option");
+                continue;
+            }
+
+            isApplicantChosen = true;
+        }while(!isApplicantChosen);
+
+        int index = adminOption - 1;
+        Student student = students.get(index);
+
+        //EXPELLING STUDENT
+        studentService.removeStudentFromList(student);
+        System.out.println("Student has been expelled");
     }
 
     private void exitApplication(){

@@ -29,4 +29,9 @@ public class StudentServiceImpl implements StudentService {
     public void saveStudentToList(Student student) {
         departmentRepository.saveStudent(student);
     }
+
+    @Override
+    public void removeStudentFromList(Student student) {
+        departmentRepository.removeStudent(student);
+    }
 }

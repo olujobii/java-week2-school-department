@@ -83,4 +83,8 @@ public class DepartmentRepository {
     public void saveStudent(Student student) {
         totalStudents.add(student);
     }
+
+    public void removeStudent(Student student) {
+        totalStudents.remove(student);
+    }
 }
