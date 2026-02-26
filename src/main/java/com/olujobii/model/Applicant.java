@@ -5,7 +5,7 @@ import com.olujobii.enums.Gender;
 import com.olujobii.model.baseClass.Person;
 
 public class Applicant extends Person {
-    private Courses interestedCourse;
+    private final Courses interestedCourse;
 
     public Applicant(String name, int age, Gender gender, String id, Courses interestedCourse) {
         super(name, age, gender, id);

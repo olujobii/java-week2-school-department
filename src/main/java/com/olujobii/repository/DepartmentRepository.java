@@ -71,4 +71,20 @@ public class DepartmentRepository {
     public List<Applicant> getTotalApplicants() {
         return totalApplicants;
     }
+
+    public void saveApplicant(Applicant applicant){
+        totalApplicants.add(applicant);
+    }
+
+    public void deleteApplicant(Applicant applicant) {
+        totalApplicants.remove(applicant);
+    }
+
+    public void saveStudent(Student student) {
+        totalStudents.add(student);
+    }
+
+    public void removeStudent(Student student) {
+        totalStudents.remove(student);
+    }
 }
