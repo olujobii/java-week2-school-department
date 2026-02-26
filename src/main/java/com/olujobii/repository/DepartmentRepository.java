@@ -71,4 +71,8 @@ public class DepartmentRepository {
     public List<Applicant> getTotalApplicants() {
         return totalApplicants;
     }
+
+    public void saveApplicant(Applicant applicant){
+        totalApplicants.add(applicant);
+    }
 }
