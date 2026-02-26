@@ -8,7 +8,11 @@ import java.util.List;
 
 public interface ApplicantService {
 
-    void createApplicant(String name, int age, Gender gender, String id, Courses interestedCourse);
+    Applicant createApplicant(String name, int age, Gender gender, String id, Courses interestedCourse);
 
     List<Applicant> getAllApplicants();
+
+    void saveApplicantToList(Applicant applicant);
+
+    void deleteApplicantFromList(Applicant applicant);
 }

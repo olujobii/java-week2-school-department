@@ -6,7 +6,7 @@ public abstract class Person {
     private final String name;
     private final int age;
     private final Gender gender;
-    private final String id;
+    private String id;
 
     public Person(String name, int age, Gender gender, String id) {
         this.name = name;
@@ -29,6 +29,10 @@ public abstract class Person {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id){
+        this.id = id;
     }
 
     @Override

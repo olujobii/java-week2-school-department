@@ -222,7 +222,8 @@ public class SchoolMgtSystem {
         System.out.println(applicantId);
 
         //CREATE APPLICANT AND SAVE TO DB
-        applicantService.createApplicant(applicantName,applicantAge,applicantGender,applicantId,applicantChoiceOfCourse);
+        Applicant applicant = applicantService.createApplicant(applicantName,applicantAge,applicantGender,applicantId,applicantChoiceOfCourse);
+        applicantService.saveApplicantToList(applicant);
         System.out.println("Applicant created successfully");
     }
 
@@ -267,9 +268,72 @@ public class SchoolMgtSystem {
             int index = i + 1;
             System.out.println(index+". "+applicants.get(i));
         }
+
+        //CHOOSING APPLICANT TO APPROVE FOR ADMISSION
+        int adminOption = 0;
+        boolean isApplicantChosen = false;
+        do {
+            System.out.println("\nPick an applicant");
+
+            String userOption = scanner.nextLine();
+
+            if(!InputValidatorUtil.isAValidInteger(userOption)){
+                System.out.println("Not a valid integer");
+                continue;
+            }
+
+            adminOption = Integer.parseInt(userOption);
+
+            if(adminOption < 1 || adminOption > applicants.size()){
+                System.out.println("Not a valid option");
+                continue;
+            }
+
+            isApplicantChosen = true;
+        }while(!isApplicantChosen);
+
+        //APPROVING APPLICANT FOR ADMISSION
+        int index = adminOption - 1;
+        Applicant applicant = applicants.get(index);
+
+        applicant.setId(IdGeneratorUtil.idGeneration("ST"));
+
+        //CREATE STUDENT, SAVE TO DB AND REMOVE FROM APPLICANT DB
+        Student student = studentService.createStudent(applicant);
+        applicantService.deleteApplicantFromList(applicant);
+        studentService.saveStudentToList(student);
+        System.out.println(student.getName()+" is now enrolled as a student in the department");
     }
 
+    private void expelStudent(){
+        Principal principal = principalService.getPrincipal();
+        int chances = 3;
 
+        //CHECKING IF THERE IS A PRINCIPAL TO GRANT ADMIN PRIVILEDGES
+        if(principal == null){
+            System.out.println("Only the principal can authorize approval of applicants");
+            return;
+        }
+
+        //AUTHENTICATOR - PRINCIPAL MUST ENTER CORRECT PASSWORD TO GAIN ACCESS
+        System.out.print("Welcome "+principal.getName()+", enter password to continue ("+chances+") attempt left: ");
+        do {
+            String adminPassword = scanner.nextLine();
+
+            if (!AuthenticatorUtil.authenticator(adminPassword)){
+                chances--;
+                System.out.print("Wrong password, please try again ("+chances+") attempt left: ");
+            }
+            else
+                break;
+
+        } while (chances > 0);
+
+        if(chances == 0){
+            System.out.println("System has been locked, try again later");
+            return;
+        }
+    }
 
     private void exitApplication(){
         System.out.println("Thanks for using our app");

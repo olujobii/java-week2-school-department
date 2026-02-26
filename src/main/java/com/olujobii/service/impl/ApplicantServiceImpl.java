@@ -16,14 +16,22 @@ public class ApplicantServiceImpl implements ApplicantService {
     }
 
     @Override
-    public void createApplicant(String name, int age, Gender gender, String id, Courses interestedCourse){
-
-        Applicant applicant = new Applicant(name,age,gender,id,interestedCourse);
-        departmentRepository.saveApplicant(applicant);
+    public Applicant createApplicant(String name, int age, Gender gender, String id, Courses interestedCourse){
+        return new Applicant(name,age,gender,id,interestedCourse);
     }
 
     @Override
     public List<Applicant> getAllApplicants() {
         return departmentRepository.getTotalApplicants();
+    }
+
+    @Override
+    public void saveApplicantToList(Applicant applicant){
+        departmentRepository.saveApplicant(applicant);
+    }
+
+    @Override
+    public void deleteApplicantFromList(Applicant applicant){
+        departmentRepository.deleteApplicant(applicant);
     }
 }
