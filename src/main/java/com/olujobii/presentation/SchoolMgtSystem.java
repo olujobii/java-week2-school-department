@@ -229,7 +229,7 @@ public class SchoolMgtSystem {
 
     private void approveApplicant(){
         Principal principal = principalService.getPrincipal();
-        int chances = 3;
+        int noOfChances = 3;
 
         //CHECKING IF THERE IS A PRINCIPAL TO GRANT ADMIN PRIVILEDGES
         if(principal == null){
@@ -238,18 +238,7 @@ public class SchoolMgtSystem {
         }
 
         //AUTHENTICATOR - PRINCIPAL MUST ENTER CORRECT PASSWORD TO GAIN ACCESS
-        System.out.print("Welcome "+principal.getName()+", enter password to continue ("+chances+") attempt left: ");
-        do {
-            String adminPassword = scanner.nextLine();
-
-            if (!AuthenticatorUtil.authenticator(adminPassword)){
-                chances--;
-                System.out.print("Wrong password, please try again ("+chances+") attempt left: ");
-            }
-            else
-                break;
-
-        } while (chances > 0);
+        int chances = runAuthentication(principal,noOfChances);
         
         if(chances == 0){
             System.out.println("System has been locked, try again later");
@@ -307,7 +296,7 @@ public class SchoolMgtSystem {
 
     private void expelStudent(){
         Principal principal = principalService.getPrincipal();
-        int chances = 3;
+        int noOfChances = 3;
 
         //CHECKING IF THERE IS A PRINCIPAL TO GRANT ADMIN PRIVILEDGES
         if(principal == null){
@@ -316,18 +305,7 @@ public class SchoolMgtSystem {
         }
 
         //AUTHENTICATOR - PRINCIPAL MUST ENTER CORRECT PASSWORD TO GAIN ACCESS
-        System.out.print("Welcome "+principal.getName()+", enter password to continue ("+chances+") attempt left: ");
-        do {
-            String adminPassword = scanner.nextLine();
-
-            if (!AuthenticatorUtil.authenticator(adminPassword)){
-                chances--;
-                System.out.print("Wrong password, please try again ("+chances+") attempt left: ");
-            }
-            else
-                break;
-
-        } while (chances > 0);
+        int chances = runAuthentication(principal,noOfChances);
 
         if(chances == 0){
             System.out.println("System has been locked, try again later");
@@ -394,5 +372,22 @@ public class SchoolMgtSystem {
         System.out.println("3. "+Courses.PYTHON);
         System.out.println("3. "+Courses.JAVASCRIPT);
 
+    }
+
+    private int runAuthentication(Principal principal, int noOfChances){
+        System.out.print("Welcome "+principal.getName()+", enter password to continue ("+noOfChances+") attempts left: ");
+        do {
+            String adminPassword = scanner.nextLine();
+
+            if (!AuthenticatorUtil.authenticator(adminPassword)){
+                noOfChances--;
+                System.out.print("Wrong password, please try again ("+noOfChances+") attempts left: ");
+            }
+            else
+                break;
+
+        } while (noOfChances > 0);
+
+        return noOfChances;
     }
 }
