@@ -228,22 +228,9 @@ public class SchoolMgtSystem {
     }
 
     private void approveApplicant(){
-        Principal principal = principalService.getPrincipal();
-        int noOfChances = 3;
-
-        //CHECKING IF THERE IS A PRINCIPAL TO GRANT ADMIN PRIVILEDGES
-        if(principal == null){
-            System.out.println("Only the principal can authorize approval of applicants");
+        //PERFORMING AUTHENTICATION TO MAKE SURE ONLY PRINCIPAL CAN APPROVE APPLICANT
+        if(!authenticateAdmin())
             return;
-        }
-
-        //AUTHENTICATOR - PRINCIPAL MUST ENTER CORRECT PASSWORD TO GAIN ACCESS
-        int chances = runAuthentication(principal,noOfChances);
-        
-        if(chances == 0){
-            System.out.println("System has been locked, try again later");
-            return;
-        }
 
         //CHECKING IF THERE IS ANY APPLICANT AWAITING APPROVAL
         List<Applicant> applicants = applicantService.getAllApplicants();
@@ -259,31 +246,10 @@ public class SchoolMgtSystem {
         }
 
         //CHOOSING APPLICANT TO APPROVE FOR ADMISSION
-        int adminOption = 0;
-        boolean isApplicantChosen = false;
-        do {
-            System.out.print("\nPick an applicant: ");
-
-            String userOption = scanner.nextLine();
-
-            if(!InputValidatorUtil.isAValidInteger(userOption)){
-                System.out.println("Not a valid integer");
-                continue;
-            }
-
-            adminOption = Integer.parseInt(userOption);
-
-            if(adminOption < 1 || adminOption > applicants.size()){
-                System.out.println("Not a valid option");
-                continue;
-            }
-
-            isApplicantChosen = true;
-        }while(!isApplicantChosen);
+        int adminOption = pickChoiceFromList("Pick an applicant",applicants.size());
 
         //APPROVING APPLICANT FOR ADMISSION
-        int index = adminOption - 1;
-        Applicant applicant = applicants.get(index);
+        Applicant applicant = applicants.get(adminOption);
 
         applicant.setId(IdGeneratorUtil.idGeneration("ST"));
 
@@ -295,22 +261,9 @@ public class SchoolMgtSystem {
     }
 
     private void expelStudent(){
-        Principal principal = principalService.getPrincipal();
-        int noOfChances = 3;
-
-        //CHECKING IF THERE IS A PRINCIPAL TO GRANT ADMIN PRIVILEDGES
-        if(principal == null){
-            System.out.println("Only the principal can authorize approval of applicants");
+        //PERFORMING AUTHENTICATION TO MAKE SURE ONLY PRINCIPAL CAN APPROVE APPLICANT
+        if(!authenticateAdmin())
             return;
-        }
-
-        //AUTHENTICATOR - PRINCIPAL MUST ENTER CORRECT PASSWORD TO GAIN ACCESS
-        int chances = runAuthentication(principal,noOfChances);
-
-        if(chances == 0){
-            System.out.println("System has been locked, try again later");
-            return;
-        }
 
         List<Student> students = studentService.listAllStudents();
         if(students.isEmpty()){
@@ -323,30 +276,8 @@ public class SchoolMgtSystem {
             System.out.println(order+". "+students.get(i));
         }
 
-        int adminOption = 0;
-        boolean isApplicantChosen = false;
-        do {
-            System.out.print("\nPick a student: ");
-
-            String userOption = scanner.nextLine();
-
-            if(!InputValidatorUtil.isAValidInteger(userOption)){
-                System.out.println("Not a valid integer");
-                continue;
-            }
-
-            adminOption = Integer.parseInt(userOption);
-
-            if(adminOption < 1 || adminOption > students.size()){
-                System.out.println("Not a valid option");
-                continue;
-            }
-
-            isApplicantChosen = true;
-        }while(!isApplicantChosen);
-
-        int index = adminOption - 1;
-        Student student = students.get(index);
+        int adminOption = pickChoiceFromList("Pick a student",students.size());
+        Student student = students.get(adminOption);
 
         //EXPELLING STUDENT
         studentService.removeStudentFromList(student);
@@ -370,8 +301,29 @@ public class SchoolMgtSystem {
         System.out.println("1. "+Courses.JAVA);
         System.out.println("2. "+Courses.GOLANG);
         System.out.println("3. "+Courses.PYTHON);
-        System.out.println("3. "+Courses.JAVASCRIPT);
+        System.out.println("4. "+Courses.JAVASCRIPT);
 
+    }
+
+    private boolean authenticateAdmin(){
+        Principal principal = principalService.getPrincipal();
+        int noOfChances = 3;
+
+        //CHECKING IF THERE IS A PRINCIPAL TO GRANT ADMIN PRIVILEDGES
+        if(principal == null){
+            System.out.println("Only the principal can authorize approval of applicants");
+            return false;
+        }
+
+        //AUTHENTICATOR - PRINCIPAL MUST ENTER CORRECT PASSWORD TO GAIN ACCESS
+        int chances = runAuthentication(principal,noOfChances);
+
+        if(chances == 0){
+            System.out.println("System has been locked, try again later");
+            return false;
+        }
+
+        return true;
     }
 
     private int runAuthentication(Principal principal, int noOfChances){
@@ -389,5 +341,31 @@ public class SchoolMgtSystem {
         } while (noOfChances > 0);
 
         return noOfChances;
+    }
+
+    private int pickChoiceFromList(String message, int listSize){
+        int adminOption = 0;
+        boolean isApplicantChosen = false;
+        do {
+            System.out.print("\n"+message+":");
+
+            String userOption = scanner.nextLine();
+
+            if(!InputValidatorUtil.isAValidInteger(userOption)){
+                System.out.println("Not a valid integer");
+                continue;
+            }
+
+            adminOption = Integer.parseInt(userOption);
+
+            if(adminOption < 1 || adminOption > listSize){
+                System.out.println("Not a valid option");
+                continue;
+            }
+
+            isApplicantChosen = true;
+        }while(!isApplicantChosen);
+
+        return adminOption - 1 ; // Return index-based list position
     }
 }
