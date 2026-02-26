@@ -19,10 +19,12 @@ public class Main {
         StudentService studentService = new StudentServiceImpl(departmentRepository);
         StaffService staffService = new StaffServiceImpl(departmentRepository);
         CourseService courseService = new CourseServiceImpl(departmentRepository);
+        PrincipalService principalService = new PrincipalServiceImpl(departmentRepository);
+        ApplicantService applicantService = new ApplicantServiceImpl(departmentRepository);
 
         //Presentation
         SchoolMgtSystem schoolMgtSystem = new SchoolMgtSystem(studentService
-                ,staffService,courseService);
+                ,staffService,courseService,principalService,applicantService);
 
         schoolMgtSystem.runApplication();
 
