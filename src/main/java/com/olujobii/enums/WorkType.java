@@ -6,5 +6,9 @@ public enum WorkType {
 
     SECURITY,
 
-    CHEF
+    CHEF,
+
+    PRINCIPAL,
+
+    TEACHER
 }
