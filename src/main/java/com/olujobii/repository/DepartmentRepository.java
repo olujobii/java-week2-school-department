@@ -5,11 +5,13 @@ import com.olujobii.enums.Gender;
 import com.olujobii.enums.WorkType;
 import com.olujobii.model.*;
 import com.olujobii.model.baseClass.Staff;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Repository
 public class DepartmentRepository {
     private final List<Courses> totalCourses;
     private final List<Student> totalStudents;

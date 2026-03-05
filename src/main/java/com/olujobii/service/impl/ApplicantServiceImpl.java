@@ -5,9 +5,11 @@ import com.olujobii.enums.Gender;
 import com.olujobii.model.Applicant;
 import com.olujobii.repository.DepartmentRepository;
 import com.olujobii.service.ApplicantService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ApplicantServiceImpl implements ApplicantService {
     private final DepartmentRepository departmentRepository;
 
