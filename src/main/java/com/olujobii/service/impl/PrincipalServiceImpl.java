@@ -4,9 +4,11 @@ import com.olujobii.model.Principal;
 import com.olujobii.model.baseClass.Staff;
 import com.olujobii.repository.DepartmentRepository;
 import com.olujobii.service.PrincipalService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PrincipalServiceImpl implements PrincipalService {
     private final DepartmentRepository departmentRepository;
 

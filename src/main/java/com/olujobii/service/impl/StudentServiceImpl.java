@@ -4,9 +4,11 @@ import com.olujobii.model.Applicant;
 import com.olujobii.model.Student;
 import com.olujobii.repository.DepartmentRepository;
 import com.olujobii.service.StudentService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class StudentServiceImpl implements StudentService {
     private final DepartmentRepository departmentRepository;
 

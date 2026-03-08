@@ -5,11 +5,13 @@ import com.olujobii.enums.Gender;
 import com.olujobii.enums.WorkType;
 import com.olujobii.model.*;
 import com.olujobii.model.baseClass.Staff;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Repository
 public class DepartmentRepository {
     private final List<Courses> totalCourses;
     private final List<Student> totalStudents;
@@ -27,13 +29,13 @@ public class DepartmentRepository {
     //CREATE MOCK DATA FOR IN-MEMORY DATABASE
     public void createMockData(){
         //PRINCIPAL
-        Staff principal = new Principal("Segun Osiki",33, Gender.MALE,"PR-394");
+        Staff principal = new Principal("Segun Osiki",33, Gender.MALE,"PR-394",WorkType.PRINCIPAL);
 
         //TEACHERS
-        Staff teacher1 = new Teacher("John Olajide",27,Gender.MALE,"TCH-493",Courses.GOLANG);
-        Staff teacher2 = new Teacher("Samuel Joseph",25,Gender.MALE,"TCH-532",Courses.JAVA);
-        Staff teacher3 = new Teacher("Oluwasetemi Precious",28,Gender.FEMALE,"TCH-053",Courses.JAVASCRIPT);
-        Staff teacher4 = new Teacher("Gloria",25,Gender.FEMALE,"TCH-981",Courses.PYTHON);
+        Staff teacher1 = new Teacher("John Olajide",27,Gender.MALE,"TCH-493",Courses.GOLANG,WorkType.TEACHER);
+        Staff teacher2 = new Teacher("Samuel Joseph",25,Gender.MALE,"TCH-532",Courses.JAVA,WorkType.TEACHER);
+        Staff teacher3 = new Teacher("Oluwasetemi Precious",28,Gender.FEMALE,"TCH-053",Courses.JAVASCRIPT,WorkType.TEACHER);
+        Staff teacher4 = new Teacher("Gloria",25,Gender.FEMALE,"TCH-981",Courses.PYTHON,WorkType.TEACHER);
 
         //NON-ACADEMIC STAFF
         Staff nonAcademicStaff1 = new NonAcademicStaff("David",27,Gender.MALE,"NST-238", WorkType.SECURITY);

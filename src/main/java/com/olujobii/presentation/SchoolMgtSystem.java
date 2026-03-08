@@ -10,10 +10,12 @@ import com.olujobii.service.*;
 import com.olujobii.util.AuthenticatorUtil;
 import com.olujobii.util.IdGeneratorUtil;
 import com.olujobii.util.InputValidatorUtil;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Scanner;
 
+@Component("SchoolManagementSystem")
 public class SchoolMgtSystem {
     private final Scanner scanner;
     private final StudentService studentService;
