@@ -1,61 +1,91 @@
 package com.olujobii.repository;
 
 import com.olujobii.enums.Courses;
-import com.olujobii.enums.Gender;
-import com.olujobii.enums.WorkType;
 import com.olujobii.model.*;
 import com.olujobii.model.baseClass.Staff;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.sql.*;
 import java.util.List;
 
 @Repository
 public class DepartmentRepository {
+    private static final String URL = "jdbc:h2:file:./schooldb;INIT=RUNSCRIPT FROM 'classpath:schema.sql'";
+    private static final String USERNAME = "sa";
+    private static final String PASSWORD = "";
     private final List<Courses> totalCourses;
     private final List<Student> totalStudents;
     private final List<Staff> totalStaffs;
     private final List<Applicant> totalApplicants;
 
-    public DepartmentRepository() {
-
-        this.totalCourses = new ArrayList<>();
-        this.totalStudents = new ArrayList<>();
-        this.totalStaffs = new ArrayList<>();
-        this.totalApplicants = new ArrayList<>();
+    public DepartmentRepository(List<Courses> totalCourses,List<Student> totalStudents,List<Staff> totalStaffs,
+                                List<Applicant> totalApplicants) {
+        this.totalCourses = totalCourses;
+        this.totalStudents = totalStudents;
+        this.totalStaffs = totalStaffs;
+        this.totalApplicants = totalApplicants;
     }
 
-    //CREATE MOCK DATA FOR IN-MEMORY DATABASE
     public void createMockData(){
-        //PRINCIPAL
-        Staff principal = new Principal("Segun Osiki",33, Gender.MALE,"PR-394",WorkType.PRINCIPAL);
+        ResultSet resultSetStaff = null;
+        ResultSet resultSetStudent = null;
+        try(Connection connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+            Statement statement = connection.createStatement()){
+            connection.setAutoCommit(false);
 
-        //TEACHERS
-        Staff teacher1 = new Teacher("John Olajide",27,Gender.MALE,"TCH-493",Courses.GOLANG,WorkType.TEACHER);
-        Staff teacher2 = new Teacher("Samuel Joseph",25,Gender.MALE,"TCH-532",Courses.JAVA,WorkType.TEACHER);
-        Staff teacher3 = new Teacher("Oluwasetemi Precious",28,Gender.FEMALE,"TCH-053",Courses.JAVASCRIPT,WorkType.TEACHER);
-        Staff teacher4 = new Teacher("Gloria",25,Gender.FEMALE,"TCH-981",Courses.PYTHON,WorkType.TEACHER);
+            //INSERTS INITIAL VALUES IF DB FILE DOES NOT EXIST IN DIRECTORY
+            resultSetStaff = statement.executeQuery("SELECT * FROM staffs");
+            if(!resultSetStaff.next()){
+                String execute1 = "INSERT INTO staffs VALUES('PR-394','Segun Osiki',33,'MALE','PRINCIPAL',NULL)";
+                statement.addBatch(execute1);
+                String execute2 = "INSERT INTO staffs VALUES('TCH-493','John Olajide',27,'MALE','TEACHER','GOLANG')";
+                statement.addBatch(execute2);
+                String execute3 = "INSERT INTO staffs VALUES('TCH-532','Samuel Joseph',25,'MALE','TEACHER','JAVA')";
+                statement.addBatch(execute3);
+                String execute4 = "INSERT INTO staffs VALUES('TCH-053','Oluwasetemi Precious',28,'FEMALE','TEACHER','JAVASCRIPT')";
+                statement.addBatch(execute4);
+                String execute5 = "INSERT INTO staffs VALUES('TCH-981','Gloria',25,'FEMALE','TEACHER','PYTHON')";
+                statement.addBatch(execute5);
+                String execute6 = "INSERT INTO staffs VALUES('NST-238','David',27,'MALE','SECURITY',NULL)";
+                statement.addBatch(execute6);
+                String execute7 = "INSERT INTO staffs VALUES('NST-008','Chisom',29,'FEMALE','CLEANER',NULL)";
+                statement.addBatch(execute7);
+                String execute8 = "INSERT INTO staffs VALUES('NST-764','Daniel',27,'MALE','CHEF',NULL)";
+                statement.addBatch(execute8);
 
-        //NON-ACADEMIC STAFF
-        Staff nonAcademicStaff1 = new NonAcademicStaff("David",27,Gender.MALE,"NST-238", WorkType.SECURITY);
-        Staff nonAcademicStaff2 = new NonAcademicStaff("Chisom",29,Gender.FEMALE,"NST-008", WorkType.CLEANER);
-        Staff nonAcademicStaff3 = new NonAcademicStaff("Daniel",27,Gender.MALE,"NST-764", WorkType.CHEF);
+                statement.executeBatch();
+                connection.commit();
+            }
 
-        //STUDENTS
-        Student student1 = new Student("Ife Olujobi",23,Gender.MALE,"ST-482",Courses.JAVA);
-        Student student2 = new Student("Frank Joseph",39,Gender.MALE,"ST-810",Courses.PYTHON);
-        Student student3 = new Student("Chisom Nwachukwu",23,Gender.FEMALE,"ST-002",Courses.GOLANG);
-        Student student4 = new Student("Mark Omeje",30,Gender.MALE,"ST-003",Courses.JAVASCRIPT);
+            resultSetStudent = statement.executeQuery("SELECT * FROM students");
+            if(!resultSetStudent.next())
+            {
+                String execute1 = "INSERT INTO students VALUES('ST-482','Ife Olujobi',23,'MALE','JAVA')";
+                statement.addBatch(execute1);
+                String execute2 = "INSERT INTO students VALUES('ST-810','Frank Joseph',39,'MALE','PYTHON')";
+                statement.addBatch(execute2);
+                String execute3 = "INSERT INTO students VALUES('ST-002','Chisom Nwachukwu',23,'FEAMLE','GOLANG')";
+                statement.addBatch(execute3);
+                String execute4 = "INSERT INTO students VALUES('ST-003','Timilehin Awoniyi',26,'MALE','JAVASCRIPT')";
+                statement.addBatch(execute4);
 
+                statement.executeBatch();
+                connection.commit();
+            }
+        }catch(SQLException ex){
+            System.out.println("An error occurred");
+            ex.printStackTrace();
+        }finally {
+            try{
+                if(resultSetStaff != null)
+                    resultSetStaff.close();
 
-        //Add to List
-        Collections.addAll(totalStaffs,principal,teacher1,teacher2,teacher3,teacher4,nonAcademicStaff1
-        ,nonAcademicStaff2,nonAcademicStaff3);
-
-        Collections.addAll(totalStudents,student1,student2,student3,student4);
-
-        Collections.addAll(totalCourses,Courses.JAVA,Courses.GOLANG,Courses.PYTHON,Courses.JAVASCRIPT);
+                if(resultSetStudent != null)
+                    resultSetStudent.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        }
     }
 
     public List<Courses> getTotalCourses() {

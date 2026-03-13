@@ -17,6 +17,6 @@ public class Main {
                 ,SchoolMgtSystem.class);
 
         departmentRepository.createMockData();
-        schoolMgtSystem.runApplication();
+//        schoolMgtSystem.runApplication();
     }
 }
