@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS staffs (
-    id INT PRIMARY KEY,
+    id VARCHAR(50) PRIMARY KEY,
     full_name VARCHAR(50) NOT NULL,
     age INT NOT NULL,
     gender VARCHAR(50) NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS staffs (
 );
 
 CREATE TABLE IF NOT EXISTS students(
-    id INT PRIMARY KEY,
+    id VARCHAR(50) PRIMARY KEY,
     full_name VARCHAR(50) NOT NULL,
     age INT NOT NULL,
     gender VARCHAR(50) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS students(
 );
 
 CREATE TABLE IF NOT EXISTS applicants(
-    id INT PRIMARY KEY,
+    id VARCHAR(50) PRIMARY KEY,
     full_name VARCHAR(50) NOT NULL,
     age INT NOT NULL,
     gender VARCHAR(50) NOT NULL,
